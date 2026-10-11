@@ -1,0 +1,6 @@
+# Nunca publicar arquivos sem senha
+*NAO_PUBLICAR*
+arquivo/
+*.tmp
+~$*
+desktop.ini
