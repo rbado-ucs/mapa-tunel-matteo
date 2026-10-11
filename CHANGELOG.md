@@ -11,6 +11,35 @@ Cada versão registra tudo o que mudou no mapa, separado em categorias:
 
 A versão mais recente fica no topo.
 
+
+## 1.1.0 · publicada em 11/10/2026 · dados até 10/10/2026
+
+Navegação e ajuda. É uma versão MENOR: traz novas funções e melhorias de uso, sem mudar os dados.
+
+### Funcionalidades
+- Tour guiado ao abrir o mapa:
+  - pode ser pulado a qualquer momento;
+  - tem a caixa "Não mostrar o tour no próximo acesso";
+  - pode ser revisto pelo Guia de uso.
+- Guia de uso dentro do Sobre, com:
+  - primeiros passos;
+  - como fazer;
+  - interface;
+  - conceitos;
+  - atalhos;
+  - perguntas frequentes;
+  - glossário.
+
+### Design e usabilidade
+- Painéis recolhíveis nas laterais do mapa: Filtros e camadas à esquerda, Lista e ficha à direita.
+- Cabeçalho só com o botão Sobre.
+- Sobre em janela com três abas: Sobre o mapa, Guia de uso e Versões.
+- Ficha fixa no topo do painel da direita. A lista rola separadamente.
+- Número de itens da lista na faixa da direita.
+- No celular:
+  - os dois painéis ficam numa barra inferior;
+  - o cabeçalho ficou mais compacto.
+
 ## 1.0.0 · publicada em 11/10/2026 · dados até 10/10/2026
 
 Primeira versão publicada.

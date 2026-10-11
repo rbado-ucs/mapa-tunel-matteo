@@ -67,20 +67,17 @@ O GitHub guarda todas as versões anteriores do index.html (aba "History" do arq
    - abra mapa_sem_senha_NAO_PUBLICAR.html no navegador;
    - veja se o selo mostra a versão e as datas certas;
    - veja se o CHANGELOG descreve as mudanças.
-3. No GitHub Desktop, a aba "Changes" deve listar só arquivos que vão para o GitHub (tabela acima). Se aparecer algum "NAO_PUBLICAR", pare e verifique o .gitignore.
-4. Em "Summary", escreva a versão e um resumo (ex.: "1.1.0 – camada de contêineres da Codeca") e clique em "Commit to main".
-5. Clique em "Push origin". Em um ou dois minutos o site mostra a nova versão. Se o navegador mostrar a antiga, recarregue com Ctrl+F5.
+3. Abra https://github.com/rbado-ucs/mapa-tunel-matteo, clique em "Add file" → "Upload files" e arraste da pasta Mapa_site só os arquivos que mudaram e que vão para o GitHub (tabela acima). Nunca arraste "NAO_PUBLICAR" nem a pasta arquivo.
+4. Em "Commit changes", escreva a versão e um resumo (ex.: "1.1.0 – camada de contêineres da Codeca") e clique em "Commit changes". Arquivos com o mesmo nome são substituídos.
+5. Em um ou dois minutos o site mostra a nova versão. Se o navegador mostrar a antiga, recarregue com Ctrl+F5.
 6. Avise a equipe com a versão, a data dos dados e o resumo das mudanças.
 
-## 6. Configuração inicial (uma vez só)
+## 6. Configuração (feita em 11/10/2026)
 
-1. Instale o GitHub Desktop (desktop.github.com) e entre com a sua conta.
-2. Clique em File, depois "Add local repository", e escolha a pasta Mapa_site. Ele vai avisar que a pasta ainda não é um repositório. Clique em "create a repository", com o nome `tunel-matteo`, e confirme.
-3. Clique em "Publish repository". Pode desmarcar "Keep this code private": o mapa está criptografado.
-4. No site do GitHub, abra o repositório, vá em Settings → Pages, escolha "Deploy from a branch", a branch `main` e a pasta `/ (root)`, e salve.
-5. Anote o endereço do site e guarde a senha num gerenciador de senhas.
-
-**Atenção:** a pasta Mapa_site está dentro do OneDrive. Isso funciona, mas evite editar os mesmos arquivos em dois computadores ao mesmo tempo, porque a sincronização do OneDrive pode conflitar com o Git. Se várias pessoas forem publicar, cada uma deve clonar o repositório numa pasta fora do OneDrive.
+- **Repositório:** https://github.com/rbado-ucs/mapa-tunel-matteo (público; o mapa está criptografado).
+- **Site:** https://rbado-ucs.github.io/mapa-tunel-matteo/ (GitHub Pages, branch `main`, pasta `/ (root)`).
+- **Publicação:** pelo navegador (passo a passo acima). O GitHub Desktop é opcional; se for usado, clone o repositório numa pasta fora do OneDrive, para evitar conflito entre a sincronização do OneDrive e o Git.
+- **Senha:** guardada num gerenciador de senhas, fora desta pasta.
 
 ## 7. Senha
 
