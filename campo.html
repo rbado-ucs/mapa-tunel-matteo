@@ -171,7 +171,7 @@ label.k{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
   var cat = CATS[0], restricted = true, onlyMine = false, fTema = "";
   var fix = null, watchId = null, pendingPhotos = [], pendingPoint = null;
   var remote = [], queue = [], editingId = null, qdb = null;
-  var syncing = false, lastErr = "", connected = false;
+  var syncing = false, lastErr = "", connected = false, modo = "";
 
   var $ = function(id){return document.getElementById(id)};
   function pad(n){return (n<10?"0":"")+n}
@@ -180,6 +180,14 @@ label.k{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
   function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toast._h); toast._h=setTimeout(function(){t.classList.remove("show")},2800); }
   function lsGet(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
   function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function loadSent(){ try{ return JSON.parse(lsGet("pts_enviadas_v31","[]"))||[]; }catch(e){ return []; } }
+  function rememberSent(it){
+    var a=loadSent(), n=it.note;
+    if(a.some(function(x){return x.id===n.id;})) return;
+    a.push({id:n.id,t:n.t,cat:n.cat,tema:n.tema,text:n.text,lat:n.lat,lon:n.lon,acc:n.acc,src:n.src,restrita:n.restrita,coletor:n.coletor,nfotos:it.photos.length});
+    if(a.length>100) a=a.slice(a.length-100);
+    lsSet("pts_enviadas_v31",JSON.stringify(a));
+  }
 
   // ---------- configuração ----------
   function loadCfg(){
@@ -344,8 +352,10 @@ label.k{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
       var it=queue[0];
       post(it).then(function(r){
         if(!r || !r.ok) throw new Error((r&&r.erro)||"resposta inválida");
+        if(r.modo){ modo=r.modo; lsSet("pts_modo_v31",modo); }
+        if(modo==="escrita") rememberSent(it);
         return qDel(it.id);
-      }).then(function(){ queue.shift(); renderAll(); next(); })
+      }).then(function(){ queue.shift(); if(modo==="escrita") remote=loadSent(); renderAll(); next(); })
       .catch(function(e){ syncing=false; lastErr=String(e&&e.message||e).slice(0,60); renderStatus(); renderList(); });
     })();
   }
@@ -355,6 +365,8 @@ label.k{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
       .then(function(r){ return r.json(); })
       .then(function(r){
         if(!r||!r.ok) throw new Error((r&&r.erro)||"resposta inválida");
+        modo=r.modo||"leitura"; lsSet("pts_modo_v31",modo);
+        if(modo==="escrita"){ remote=loadSent(); connected=true; lastErr=""; renderAll(); return; }
         remote=(r.notas||[]).map(function(x){
           return {id:String(x.id),t:x.data_hora,tema:x.tema,cat:x.categoria,text:x.nota,
             lat:x.latitude===""?null:Number(x.latitude),lon:x.longitude===""?null:Number(x.longitude),
@@ -512,6 +524,7 @@ label.k{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
   $("impIn").onchange=function(){ var f=this.files[0]; this.value=""; if(f) importZip(f); };
 
   // ---------- início ----------
+  modo=lsGet("pts_modo_v31",""); if(modo==="escrita") remote=loadSent();
   loadCfg(); renderChips(); renderRestr(); renderAll();
   qOpen().then(qAll).then(function(items){ queue=items; renderAll(); pull().then(sync); });
 })();
